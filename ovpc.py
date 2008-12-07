@@ -2,8 +2,9 @@
 
 import pyglet
 from pyglet.window import key
-from random import random
+from random import randrange, random
 import math
+from pyglet.gl import *
 
 window = pyglet.window.Window(800, 400, caption='OVPC')
 keys = pyglet.window.key.KeyStateHandler()
@@ -11,7 +12,12 @@ window.push_handlers(keys)
 
 batch = pyglet.graphics.Batch()
 
-raptor = pyglet.sprite.Sprite(pyglet.resource.image('raptor.png'), batch=batch)
+raptors = [
+		pyglet.sprite.Sprite(pyglet.resource.image('raptor.png'), batch=batch),
+		pyglet.sprite.Sprite(pyglet.resource.image('raptor.png'), batch=batch),
+		pyglet.sprite.Sprite(pyglet.resource.image('raptor.png'), batch=batch),
+		pyglet.sprite.Sprite(pyglet.resource.image('raptor.png'), batch=batch),
+		pyglet.sprite.Sprite(pyglet.resource.image('raptor.png'), batch=batch)]
 child = pyglet.sprite.Sprite(pyglet.resource.image('child.png'), batch=batch)
 
 def update(dt):
@@ -20,23 +26,35 @@ def update(dt):
 		sys.exit(0)
 
 	if keys[key.UP]:
-		child.y += dt * 100
+		child.y += dt * 200
 	if keys[key.DOWN]:
-		child.y -= dt * 100
+		child.y -= dt * 200
 	if keys[key.LEFT]:
-		child.x -= dt * 100
+		child.x -= dt * 200
 	if keys[key.RIGHT]:
-		child.x += dt * 100
+		child.x += dt * 200
 
-	raptor.x -= dt * 100
-	raptor.y += dt * random() * 10
+	for raptor in raptors:
+		if raptor.x < (0 - raptor.width):
+			reset_enemy(raptor)
+
+		raptor.x -= dt * 100
+		raptor.y += dt * randrange(-10, 10)
 
 @window.event
 def on_draw():
 	window.clear()
+	glClearColor(1,1,1,1)
 	batch.draw()
 
-raptor.x = window.width
-raptor.y = window.height * random()
+def reset_enemy(raptor):
+	raptor.x = window.width
+	raptor.y = window.height * random()
+	
+for raptor in raptors:
+	raptor.scale = 0.5
+	reset_enemy(raptor)
+
+child.scale = 0.5
 pyglet.clock.schedule(update)
 pyglet.app.run()
