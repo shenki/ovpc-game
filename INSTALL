@@ -1,0 +1,17 @@
+OVPC requires pygame, which in turn reqires Python 2.5.
+
+For Debian and Ubuntu, install python-pygame
+
+  sudo apt-get install python-pygame
+
+and then run
+
+  python ovpc.py
+
+
+For Windows, download and install the following msi, then double click the
+ovpc.py file.
+
+ - http://pyglet.org/download.html
+ - http://python.org/download/releases/2.5.2/
+
