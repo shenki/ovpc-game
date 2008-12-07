@@ -12,7 +12,11 @@ window.push_handlers(keys)
 
 batch = pyglet.graphics.Batch()
 
-raptors = [
+pack = [
+		pyglet.sprite.Sprite(pyglet.resource.image('raptor.png'), batch=batch),
+		pyglet.sprite.Sprite(pyglet.resource.image('raptor.png'), batch=batch),
+		pyglet.sprite.Sprite(pyglet.resource.image('raptor.png'), batch=batch),
+		pyglet.sprite.Sprite(pyglet.resource.image('raptor.png'), batch=batch),
 		pyglet.sprite.Sprite(pyglet.resource.image('raptor.png'), batch=batch),
 		pyglet.sprite.Sprite(pyglet.resource.image('raptor.png'), batch=batch),
 		pyglet.sprite.Sprite(pyglet.resource.image('raptor.png'), batch=batch),
@@ -44,12 +48,12 @@ def update(dt):
 	if child.y < 0:
 		child.y = 0
 
-	for raptor in raptors:
+	for raptor in pack:
 		if raptor.x < (0 - raptor.width):
 			reset_enemy(raptor)
 
-		raptor.x -= dt * 100
-		raptor.y += dt * randrange(-10, 10)
+		raptor.x -= dt * 150
+		raptor.y += dt * randrange(-100, 100)
 
 @window.event
 def on_draw():
@@ -58,10 +62,10 @@ def on_draw():
 	batch.draw()
 
 def reset_enemy(raptor):
-	raptor.x = window.width
+	raptor.x = window.width + randrange(0,window.width*2)
 	raptor.y = window.height * random()
 	
-for raptor in raptors:
+for raptor in pack:
 	raptor.scale = 0.5
 	reset_enemy(raptor)
 
