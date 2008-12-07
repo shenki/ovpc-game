@@ -26,13 +26,23 @@ def update(dt):
 		sys.exit(0)
 
 	if keys[key.UP]:
-		child.y += dt * 200
+		child.y += dt * 100
 	if keys[key.DOWN]:
-		child.y -= dt * 200
+		child.y -= dt * 100
 	if keys[key.LEFT]:
-		child.x -= dt * 200
+		child.x -= dt * 100
 	if keys[key.RIGHT]:
-		child.x += dt * 200
+		child.x += dt * 100
+
+	if child.x > window.width:
+		child.x = window.width
+	if child.x < 0:
+		child.x = 0
+
+	if child.y > window.height - child.height:
+		child.y = window.height - child.height
+	if child.y < 0:
+		child.y = 0
 
 	for raptor in raptors:
 		if raptor.x < (0 - raptor.width):
