@@ -26,16 +26,7 @@ raptor_anim = pyglet.image.Animation.from_image_sequence(
 	[pyglet.resource.image(x) for x in raptor_anim_files],
 	0.1, True)
 
-pack = [
-		pyglet.sprite.Sprite(raptor_anim, batch=batch),
-		pyglet.sprite.Sprite(raptor_anim, batch=batch),
-		pyglet.sprite.Sprite(raptor_anim, batch=batch),
-		pyglet.sprite.Sprite(raptor_anim, batch=batch),
-		pyglet.sprite.Sprite(raptor_anim, batch=batch),
-		pyglet.sprite.Sprite(raptor_anim, batch=batch),
-		pyglet.sprite.Sprite(raptor_anim, batch=batch),
-		pyglet.sprite.Sprite(raptor_anim, batch=batch),
-		pyglet.sprite.Sprite(raptor_anim, batch=batch)]
+pack = [pyglet.sprite.Sprite(raptor_anim, batch=batch) for x in range(0, 20)]
 child = pyglet.sprite.Sprite(pyglet.resource.image('child.png'), batch=batch)
 
 def update(dt):
