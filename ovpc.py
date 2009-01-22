@@ -26,11 +26,30 @@ raptor_anim = pyglet.image.Animation.from_image_sequence(
 	[pyglet.resource.image(x) for x in raptor_anim_files],
 	0.1, True)
 
-pack = [pyglet.sprite.Sprite(raptor_anim, batch=batch) for x in range(0, 20)]
+pack = []
 child = pyglet.sprite.Sprite(pyglet.resource.image('child.png'), batch=batch)
 
+score = 0
+
+t = pyglet.text.Label("Score: %.1f" % score, color=(255,0,0,255), batch=batch, font_size=16)
+t.x = 10
+t.y = window.height-40
+
 def update(dt):
-	global child
+	global child, score, t
+
+	t.begin_update()
+	if type(score) in (int, float, long):
+		if len(pack)-2 < score:
+			pack.append(pyglet.sprite.Sprite(raptor_anim, batch=batch))
+			reset_enemy(pack[-1])
+
+		score += dt
+		t.text = "Score: %.1f" % score
+	else:
+		t.text = score
+	t.end_update()
+
 
 	if keys[key.ESCAPE]:
 		import sys
@@ -76,9 +95,9 @@ def update(dt):
 
 			if child.image is child_death:
 				continue
+
+			score = "You died! Score: %.1f" % score
 			child.image = child_death
-
-
 
 @window.event
 def on_draw():
@@ -87,13 +106,10 @@ def on_draw():
 	batch.draw()
 
 def reset_enemy(raptor):
+	raptor.scale = 0.5
 	raptor.x = window.width + randrange(0,window.width*2)
 	raptor.y = window.height * random()
 	
-for raptor in pack:
-	raptor.scale = 0.5
-	reset_enemy(raptor)
-
 child.scale = 0.5
 pyglet.clock.schedule(update)
 pyglet.app.run()
