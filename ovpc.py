@@ -14,20 +14,20 @@ window.push_handlers(keys)
 
 batch = pyglet.graphics.Batch()
 
-child_death_files = glob.glob("child-death[012]*.png")
+child_death_files = glob.glob("res/child-death[012]*.png")
 child_death_files.sort()
 child_death = pyglet.image.Animation.from_image_sequence(
 	[pyglet.resource.image(x) for x in child_death_files],
 	0.1, False)
 
-raptor_anim_files = glob.glob("raptor[123].png")
+raptor_anim_files = glob.glob("res/raptor[123].png")
 raptor_anim_files.sort()
 raptor_anim = pyglet.image.Animation.from_image_sequence(
 	[pyglet.resource.image(x) for x in raptor_anim_files],
 	0.1, True)
 
 pack = []
-child = pyglet.sprite.Sprite(pyglet.resource.image('child.png'), batch=batch)
+child = pyglet.sprite.Sprite(pyglet.resource.image('res/child.png'), batch=batch)
 
 score = 0
 
