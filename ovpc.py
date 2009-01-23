@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 
+import sys
+sys.path.insert(0, '.')
+
 import pyglet
+
 from pyglet.window import key
 from random import randrange, random
 import math
