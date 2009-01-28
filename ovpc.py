@@ -21,6 +21,8 @@ batch = pyglet.graphics.Batch()
 pyglet.resource.path = ['res']
 pyglet.resource.reindex()
 
+window.set_icon(pyglet.resource.image("ovpc.png"))
+
 child_death_files = glob.glob1("res", "child-death[012]*.png")
 child_death_files.sort()
 child_death = pyglet.image.Animation.from_image_sequence(
@@ -96,7 +98,7 @@ def update(dt):
 
 		if raptor.y-raptor.height*0.5 > child.y+child.height*0.5:
 			continue
-	
+
 		if (raptor.x-child.x) < (child.width+raptor.width)*0.5-10:
 			raptor.x += dt * 150
 
@@ -116,7 +118,7 @@ def reset_enemy(raptor):
 	raptor.scale = 0.5
 	raptor.x = window.width + randrange(0,window.width*2)
 	raptor.y = window.height * random()
-	
+
 child.scale = 0.5
 pyglet.clock.schedule(update)
 pyglet.app.run()
