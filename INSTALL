@@ -1,4 +1,4 @@
-OVPC requires pygame, which in turn reqires Python 2.5.
+OVPC requires pygame 1.2, which in turn reqires Python 2.5.
 
 For Debian and Ubuntu, install python-pygame
 
