@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=One Velociraptor per Child
+Comment=Help the child avoid velociraptors
+Exec=ovpc
+Icon=ovpc
+Terminal=false
+Type=Application
+Categories=Game;ActionGame;
+StartupNotify=false
