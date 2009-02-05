@@ -1,8 +1,8 @@
-OVPC requires pygame 1.2, which in turn reqires Python 2.5.
+OVPC requires pyglet 1.2, which in turn reqires Python 2.5.
 
-For Debian and Ubuntu, install python-pygame
+For Debian and Ubuntu, install python-pyglet
 
-  sudo apt-get install python-pygame
+  sudo apt-get install python-pyglet
 
 and then run
 
