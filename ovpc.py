@@ -17,9 +17,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import sys
-sys.path.insert(0, '.')
-
 import pyglet
 
 from pyglet.window import key
