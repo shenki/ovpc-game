@@ -81,6 +81,11 @@ def update(dt):
 		import sys
 		sys.exit(0)
 
+	if keys[key.ENTER] and child.image is child_death:
+		score = 0
+		child.image = pyglet.resource.image('child.png')
+		child.x = child.y = 0
+
 	if keys[key.UP] and child.image is not child_death:
 		child.y += dt * 100
 	if keys[key.DOWN] and child.image is not child_death:
