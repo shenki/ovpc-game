@@ -26,7 +26,7 @@ import time
 import glob
 from pyglet.gl import *
 
-window = pyglet.window.Window(800, 400, caption='OVPC')
+window = pyglet.window.Window(800, 400, caption='One Velociraptor per Child')
 keys = pyglet.window.key.KeyStateHandler()
 window.push_handlers(keys)
 
