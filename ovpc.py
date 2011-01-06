@@ -81,13 +81,13 @@ def update(dt):
 		import sys
 		sys.exit(0)
 
-	if keys[key.UP]:
+	if keys[key.UP] and child.image is not child_death:
 		child.y += dt * 100
-	if keys[key.DOWN]:
+	if keys[key.DOWN] and child.image is not child_death:
 		child.y -= dt * 100
-	if keys[key.LEFT]:
+	if keys[key.LEFT] and child.image is not child_death:
 		child.x -= dt * 100
-	if keys[key.RIGHT]:
+	if keys[key.RIGHT] and child.image is not child_death:
 		child.x += dt * 100
 
 	if child.x > window.width:
