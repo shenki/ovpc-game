@@ -19,16 +19,40 @@
 
 import pyglet
 
-from pyglet.window import key
+from pyglet.window import key, mouse
 from random import randrange, random
 import math
 import time
 import glob
 from pyglet.gl import *
 
+class MouseStateHandler(dict):
+	x = 0
+	y = 0
+	button = False
+
+	def on_mouse_press(self, x, y, button, modifiers):
+		self.x = x
+		self.y = y
+		self[button] = True
+
+	def on_mouse_release(self, x, y, button, modifiers):
+		self.x = x
+		self.y = y
+		self[button] = False
+
+	def on_mouse_drag(self, x, y, dx, dy, buttons, modifiers):
+		self.x = x
+		self.y = y
+
+	def __getitem__(self, key):
+		return self.get(key, False)
+
 window = pyglet.window.Window(800, 400, caption='One Velociraptor per Child')
 keys = pyglet.window.key.KeyStateHandler()
 window.push_handlers(keys)
+ms = MouseStateHandler()
+window.push_handlers(ms)
 
 batch = pyglet.graphics.Batch()
 
@@ -89,7 +113,7 @@ def update(dt):
 		import sys
 		sys.exit(0)
 
-	if keys[key.ENTER] and child.image is child_death:
+	if child.image is child_death and (keys[key.ENTER] or ((ms[mouse.LEFT] or ms[mouse.MIDDLE] or ms[mouse.RIGHT]) and raptor_eating == -1)):
 		score = 0
 		child.image = pyglet.resource.image('child.png')
 		child.x = child.y = 0
@@ -105,6 +129,16 @@ def update(dt):
 		child.x -= dt * 100
 	if keys[key.RIGHT] and child.image is not child_death:
 		child.x += dt * 100
+
+	if (ms[mouse.LEFT] or ms[mouse.MIDDLE] or ms[mouse.RIGHT]) and child.image is not child_death:
+		if ms.x <= window.width / 3:
+			child.x -= dt * 100
+		elif ms.x >= window.width / 3 * 2:
+			child.x += dt * 100
+		if ms.y <= window.height / 3:
+			child.y -= dt * 100
+		elif ms.y >= window.height / 3 * 2:
+			child.y += dt * 100
 
 	if child.x > window.width:
 		child.x = window.width
