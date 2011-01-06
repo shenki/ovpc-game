@@ -52,8 +52,19 @@ raptor_anim = pyglet.image.Animation.from_image_sequence(
 	[pyglet.resource.image(x) for x in raptor_anim_files],
 	0.1, True)
 
+raptor_static = pyglet.resource.image('raptor1.png')
+
 pack = []
 child = pyglet.sprite.Sprite(pyglet.resource.image('child.png'), batch=batch)
+
+raptor_eating = -1
+
+@child.event
+def on_animation_end():
+	global pack, raptor_eating
+	if raptor_eating != -1:
+		pack[raptor_eating].image = raptor_anim
+		raptor_eating = -1
 
 score = 0
 
@@ -62,7 +73,7 @@ t.x = 10
 t.y = window.height-40
 
 def update(dt):
-	global child, score, t
+	global child, raptor_eating, score, t
 
 	t.begin_update()
 	if type(score) in (int, float, long):
@@ -85,6 +96,9 @@ def update(dt):
 		score = 0
 		child.image = pyglet.resource.image('child.png')
 		child.x = child.y = 0
+		if raptor_eating != -1:
+			pack[raptor_eating].image = raptor_anim
+			raptor_eating = -1
 
 	if keys[key.UP] and child.image is not child_death:
 		child.y += dt * 100
@@ -122,13 +136,17 @@ def update(dt):
 			continue
 
 		if (raptor.x-child.x) < (child.width+raptor.width)*0.5-10:
-			raptor.x += dt * 150
+			if raptor_eating == i:
+				raptor.x += dt * 150
 
 			if child.image is child_death:
 				continue
 
 			score = "You died! Score: %.1f" % score
 			child.image = child_death
+			raptor.image = raptor_static
+			raptor_eating = i
+
 
 @window.event
 def on_draw():
